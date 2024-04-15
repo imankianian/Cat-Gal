@@ -15,8 +15,3 @@ sealed interface UiState {
     object Loading: UiState
     data class Success(val data: Flow<PagingData<CatModel>>): UiState
 }
-
-sealed interface CatResult {
-    data class Success(val catModels: List<CatModel>): CatResult
-    data class Error(val message: String): CatResult
-}

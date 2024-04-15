@@ -1,6 +1,5 @@
 package com.example.catgal.di
 
-import android.util.Log
 import com.example.catgal.data.remote.api.CatAPI
 import dagger.Module
 import dagger.Provides
@@ -8,12 +7,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Protocol
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 import javax.inject.Singleton
 

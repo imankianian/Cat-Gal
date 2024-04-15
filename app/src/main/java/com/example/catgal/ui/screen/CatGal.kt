@@ -190,11 +190,3 @@ fun ShowCatImage(catModel: CatModel, onCatImageClicked: (CatModel) -> Unit) {
         Spacer(modifier = Modifier.size(40.dp))
     }
 }
-
-@Composable
-fun DisplayCatInfo(catModel: CatModel) {
-    Box {
-        AsyncImage(model = catModel.url, contentDescription = "")
-        Text(text = catModel.id)
-    }
-}
