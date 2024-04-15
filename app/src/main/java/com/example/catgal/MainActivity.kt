@@ -36,8 +36,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-sealed class Routes(val route: String) {
-    object Gal: Routes("Gal")
-    object Bookmarks: Routes("Bookmarks")
-}

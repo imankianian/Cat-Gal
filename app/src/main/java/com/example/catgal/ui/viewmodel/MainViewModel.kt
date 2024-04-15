@@ -2,7 +2,7 @@ package com.example.catgal.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.catgal.domain.model.CatModel
+import com.example.catgal.UiState
 import com.example.catgal.domain.usecase.GetCatUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,16 +23,10 @@ class MainViewModel @Inject constructor(
     }
 
     private fun getCat() {
+        _uiState.value = UiState.Loading
         viewModelScope.launch {
-            _uiState.value = UiState.Loading
             val result = getCatUseCase.getCat()
             _uiState.value = UiState.Success(result)
         }
     }
-}
-
-sealed interface UiState {
-    object Loading: UiState
-    data class Success(val data: List<CatModel>): UiState
-    data class Error(val errorMessage: String): UiState
 }

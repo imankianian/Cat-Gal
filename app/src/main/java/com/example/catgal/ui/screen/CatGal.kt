@@ -31,8 +31,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.example.catgal.R
+import com.example.catgal.UiState
 import com.example.catgal.domain.model.CatModel
 import com.example.catgal.ui.viewmodel.MainViewModel
 import com.example.catgal.ui.viewmodel.UiState
@@ -63,11 +65,14 @@ fun CatGal(viewmodel: MainViewModel = hiltViewModel()) {
                     }
                 }
                 is UiState.Success -> {
-                    val catList = (ui as UiState.Success).data
+                    val catList = (ui as UiState.Success).data.collectAsLazyPagingItems()
+                    if (catList)
                     LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 185.dp),
                         modifier = Modifier.padding(5.dp)) {
-                        items(count = catList.size) { index ->
-                            ShowCatImage(catList[index])
+                        items(count = catList.itemCount) { index ->
+                            catList[index]?.let {  catModel ->
+                                ShowCatImage(catModel = catModel)
+                            }
                         }
                     }
                 }
