@@ -23,8 +23,8 @@ class MainViewModel @Inject constructor(
     }
 
     private fun getCat() {
-        _uiState.value = UiState.Loading
         viewModelScope.launch {
+            _uiState.value = UiState.Loading
             val result = getCatUseCase.getCat()
             _uiState.value = UiState.Success(result)
         }

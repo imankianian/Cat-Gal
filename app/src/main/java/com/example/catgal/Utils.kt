@@ -14,7 +14,6 @@ sealed class Routes(val route: String) {
 sealed interface UiState {
     object Loading: UiState
     data class Success(val data: Flow<PagingData<CatModel>>): UiState
-    data class Error(val errorMessage: String): UiState
 }
 
 sealed interface CatResult {
