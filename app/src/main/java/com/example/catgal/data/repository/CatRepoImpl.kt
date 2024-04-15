@@ -18,7 +18,7 @@ class CatRepoImpl @Inject constructor(
         return Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
-                enablePlaceholders = false
+                enablePlaceholders = true,
             ),
             pagingSourceFactory = { catPagingSource }
         ).flow

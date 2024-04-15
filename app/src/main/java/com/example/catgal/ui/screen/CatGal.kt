@@ -30,7 +30,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -84,8 +86,7 @@ fun CatGal(viewmodel: MainViewModel = hiltViewModel()) {
                         }
                         else -> {}
                     }
-                    LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 160.dp),
-                        modifier = Modifier.padding(20.dp)) {
+                    LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 100.dp)) {
                         items(count = catList.itemCount) { index ->
                             catList[index]?.let {  catModel ->
                                 ShowCatImage(catModel = catModel) { catM ->
@@ -99,7 +100,7 @@ fun CatGal(viewmodel: MainViewModel = hiltViewModel()) {
                         }
                         when (val state = catList.loadState.append) {
                             is LoadState.Loading -> { // Loading UI
-                                item(span = { GridItemSpan(2) }) {
+                                item(span = { GridItemSpan(3) }) {
                                     Column (
                                         modifier = Modifier.fillMaxSize(),
                                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -110,7 +111,7 @@ fun CatGal(viewmodel: MainViewModel = hiltViewModel()) {
                                 }
                             }
                             is LoadState.Error -> {
-                                item(span = { GridItemSpan(2) }) {
+                                item(span = { GridItemSpan(3) }) {
                                     Column {
                                         ErrorScreen(message = if (state.error.message!!.contains("403")) {
                                             "You need to use a VPN to view images"
@@ -127,7 +128,9 @@ fun CatGal(viewmodel: MainViewModel = hiltViewModel()) {
             }
         }
         focusedCatModel?.let { catModel ->
-            Column(modifier = Modifier.fillMaxSize()
+            Column(modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(0.7f))
                 .wrapContentHeight(Alignment.CenterVertically),
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 AsyncImage(model = catModel.url, contentDescription = "",
@@ -176,11 +179,10 @@ fun ErrorScreen(message: String) {
 @Composable
 fun ShowCatImage(catModel: CatModel, onCatImageClicked: (CatModel) -> Unit) {
     Column(modifier = Modifier
-        .width(165.dp)
-        .height(165.dp)
-        .padding(5.dp)
+        .width(100.dp)
+        .height(160.dp)
+        .padding(15.dp)
         .clip(RoundedCornerShape(10.dp))
-        .background(Color(0xff1a1a1a))
         .clickable { onCatImageClicked(catModel) }) {
         AsyncImage(model = catModel.url,
             contentDescription = "cat image",
